@@ -162,7 +162,8 @@ MuonGEMDigisHarvestor::dqmEndJob(DQMStore::IBooker& ibooker, DQMStore::IGetter& 
   }
   */
 
-  if ( ig.get( "sim_dcEta_trk_r-1_st1") != nullptr) {
+  std::string plotname = dbe_path_+"sim_dcEta_trk_r-1_st1";
+  if ( ig.get( plotname.c_str() ) != nullptr) {
     for( Int_t region  = -1; region <=1 ; region= region+2) {
       for( Int_t station = 1 ; station <=2 ; station++) {
         TH2F* simHit_trk     = (TH2F*)ig.get(TString::Format("sim_dcEta_trk_r%d_st%d",  region, station).Data())->getTH2F()->Clone();
@@ -193,9 +194,9 @@ MuonGEMDigisHarvestor::dqmEndJob(DQMStore::IBooker& ibooker, DQMStore::IGetter& 
         eff_padHit_trk->SetTitle(title_pad.Data());
         eff_copadHit_trk->SetTitle(title_copad.Data());
 
-        ibooker.book2D( eff_stripHit_trk->GetName(), eff_stripHit_trk->GetTitle(), eff_stripHit_trk );
-        ibooker.book2D( eff_padHit_trk->GetName(), eff_padHit_trk->GetTitle(), eff_padHit_trk );
-        ibooker.book2D( eff_copadHit_trk->GetName(), eff_copadHit_trk->GetTitle(), eff_copadHit_trk );
+        ibooker.book2D( eff_stripHit_trk->GetName(), eff_stripHit_trk );
+        ibooker.book2D( eff_padHit_trk->GetName(), eff_padHit_trk );
+        ibooker.book2D( eff_copadHit_trk->GetName(), eff_copadHit_trk );
       }
     }
   }
